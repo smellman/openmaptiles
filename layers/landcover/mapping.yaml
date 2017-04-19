@@ -80,6 +80,9 @@ tables:
       - grassland
       leisure:
       - park
+      - track
+      - pitch
+      - miniature_golf
       wetland:
       - bog
       - swamp

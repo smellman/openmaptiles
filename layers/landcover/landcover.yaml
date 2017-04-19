@@ -48,6 +48,9 @@ layer:
       - tidalflat
       - saltmarsh
       - mangrove
+      - track
+      - pitch
+      - miniature_golf
   datasource:
     geometry_field: geometry
     query: (SELECT geometry, class, subclass FROM layer_landcover(!bbox!, z(!scale_denominator!))) AS t
