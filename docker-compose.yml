@@ -11,17 +11,33 @@ networks:
 services:
 
   postgres:
-    image: "${POSTGIS_IMAGE:-openmaptiles/postgis}:${TOOLS_VERSION}"
+    image: "smellman/pgstrom-openmaptiles:latest"
     # Use "command: postgres -c jit=off" for PostgreSQL 11+ because of slow large MVT query processing
     # Use "shm_size: 512m" if you want to prevent a possible 'No space left on device' during 'make generate-tiles-pg'
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all  # 使用するGPUの数
+              capabilities: [gpu, compute, utility]  # GDSはcomputeとutilityを必要とします
+    devices:
+      - /dev/infiniband:/dev/infiniband  # Mellanox InfiniBandデバイスをコンテナに渡す
+      - /dev/nvidia0:/dev/nvidia0  # GPUデバイスをマウント
+      - /dev/nvidiactl:/dev/nvidiactl
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./my-postgres.conf:/etc/postgresql/postgresql.conf
     networks:
       - postgres
     ports:
       - "${PGPORT:-5432}:${PGPORT:-5432}"
     env_file: .env
     environment:
+      NVIDIA_VISIBLE_DEVICES: "all"  # すべてのGPUをコンテナ内で使用可能にする
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,driver  # GDSに必要なドライバ機能を有効にする
       # postgress container uses old variable names
       POSTGRES_DB: ${PGDATABASE:-openmaptiles}
       POSTGRES_USER: ${PGUSER:-openmaptiles}
