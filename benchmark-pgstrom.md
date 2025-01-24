@@ -4,9 +4,7 @@
 
 ```bash
 # ダウンロードなど
-./quickstart.sh japan
-# 上記で作ったdatabaseを削除
-make destroy-db
+make download area=japan
 # コンテナとvolumeを削除
 docker compose down -v
 # DBを開始
@@ -30,9 +28,9 @@ sys     0m0.171s
 
 ```bash
 $ time make import-data
-real    0m46.153s
-user    0m0.246s
-sys     0m0.185s
+real    0m45.799s
+user    0m0.216s
+sys     0m0.179s
 ```
 
 ### make import-osm
@@ -50,17 +48,19 @@ sys     0m0.195s
 
 ```bash
 $ time make import-osm
-real    9m28.830s
-user    0m0.257s
-sys     0m0.212s
+real    9m21.307s
+user    0m0.269s
+sys     0m0.214s
 ```
 
 ### make import-wikidata
 
+#### pg-strom (with cache data)
+
 ```bash
 $ time make import-wikidata
-real    0m24.424s
-user    0m0.106s
+real    0m25.213s
+user    0m0.118s
 sys     0m0.131s
 ```
 
@@ -130,7 +130,7 @@ CONTEXT:  SQL statement "INSERT INTO transportation_route_member_coalesced
                                                      concurrency_index = EXCLUDED.concurrency_index,
                                                      rank = EXCLUDED.rank"
 PL/pgSQL function update_osm_route_member(boolean) line 14 at SQL statement
-Time: 608.990 ms
+Time: 1613.988 ms (00:01.614)
 xargs: sh: exited with status 255; aborting
 make: *** [Makefile:453: import-sql] Error 124
 ```
