@@ -20,15 +20,16 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              count: all  # 使用するGPUの数
-              capabilities: [gpu, compute, utility]  # GDSはcomputeとutilityを必要とします
+              count: all
+              capabilities: [gpu, compute, utility]
     devices:
-      - /dev/infiniband:/dev/infiniband  # Mellanox InfiniBandデバイスをコンテナに渡す
-      - /dev/nvidia0:/dev/nvidia0  # GPUデバイスをマウント
+      - /dev/infiniband:/dev/infiniband
+      - /dev/nvidia0:/dev/nvidia0
       - /dev/nvidiactl:/dev/nvidiactl
       - /dev/nvidia-uvm:/dev/nvidia-uvm
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./core:/var/lib/postgresql/core:rw
       - ./my-postgres.conf:/etc/postgresql/postgresql.conf
     networks:
       - postgres
@@ -36,13 +37,21 @@ services:
       - "${PGPORT:-5432}:${PGPORT:-5432}"
     env_file: .env
     environment:
-      NVIDIA_VISIBLE_DEVICES: "all"  # すべてのGPUをコンテナ内で使用可能にする
-      NVIDIA_DRIVER_CAPABILITIES: compute,utility,driver  # GDSに必要なドライバ機能を有効にする
+      NVIDIA_VISIBLE_DEVICES: "all"
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,driver
       # postgress container uses old variable names
       POSTGRES_DB: ${PGDATABASE:-openmaptiles}
       POSTGRES_USER: ${PGUSER:-openmaptiles}
       POSTGRES_PASSWORD: ${PGPASSWORD:-openmaptiles}
       PGPORT: ${PGPORT:-5432}
+    stdin_open: true  #  (デバッグ用途)
+    tty: true         #  (デバッグ用途)
+    cap_add:
+      - SYS_PTRACE    # SYS_PTRACE 権限を追加
+    security_opt:
+      - seccomp:unconfined  # seccomp の制約を解除
+    ulimits:
+      stack: -1
 
   import-data:
     image: "openmaptiles/import-data:${TOOLS_VERSION}"

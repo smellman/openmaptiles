@@ -97,33 +97,49 @@ CREATE INDEX IF NOT EXISTS osm_important_waterway_linestring_geometry_idx
 DO $$
 BEGIN
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_important_waterway_linestring' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_important_waterway_linestring'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_important_waterway_linestring ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_important_waterway_linestring_gen_z11' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_important_waterway_linestring_gen_z11'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_important_waterway_linestring_gen_z11 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_important_waterway_linestring_gen_z10' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_important_waterway_linestring_gen_z10'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_important_waterway_linestring_gen_z10 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_important_waterway_linestring_gen_z9' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_important_waterway_linestring_gen_z9'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_important_waterway_linestring_gen_z9 ADD PRIMARY KEY (id);
     END IF;
