@@ -52,6 +52,7 @@ services:
       - seccomp:unconfined  # seccomp の制約を解除
     ulimits:
       stack: -1
+    shm_size: 2g
 
   import-data:
     image: "openmaptiles/import-data:${TOOLS_VERSION}"
