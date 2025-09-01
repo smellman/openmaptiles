@@ -125,9 +125,13 @@ FROM (
 DO $$
 BEGIN
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_name_network' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_name_network'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_name_network ADD PRIMARY KEY (osm_id);
     END IF;
@@ -277,25 +281,37 @@ CREATE INDEX IF NOT EXISTS osm_transportation_merge_linestring_gen_z11_geometry_
 DO $$
 BEGIN
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_merge_linestring_gen_z11' AND constraint_type = 'PRIMARY KEY'
+        SELECt 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_merge_linestring_gen_z11'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_merge_linestring_gen_z11 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_merge_linestring_gen_z10' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_merge_linestring_gen_z10'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_merge_linestring_gen_z10 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_merge_linestring_gen_z9' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_merge_linestring_gen_z9'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_merge_linestring_gen_z9 ADD PRIMARY KEY (id);
     END IF;
@@ -589,41 +605,61 @@ CREATE INDEX IF NOT EXISTS osm_transportation_merge_linestring_gen_z8_geometry_i
 DO $$
 BEGIN
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_merge_linestring_gen_z8' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_merge_linestring_gen_z8'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_merge_linestring_gen_z8 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_merge_linestring_gen_z7' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_merge_linestring_gen_z7'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_merge_linestring_gen_z7 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_merge_linestring_gen_z6' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_merge_linestring_gen_z6'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_merge_linestring_gen_z6 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_merge_linestring_gen_z5' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_merge_linestring_gen_z5'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_merge_linestring_gen_z5 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_merge_linestring_gen_z4' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_merge_linestring_gen_z4'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_merge_linestring_gen_z4 ADD PRIMARY KEY (id);
     END IF;

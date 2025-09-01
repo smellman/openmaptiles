@@ -302,41 +302,61 @@ CREATE TABLE IF NOT EXISTS osm_transportation_name_linestring_gen4
 DO $$
 BEGIN
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_name_linestring' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_name_linestring'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_name_linestring ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_name_linestring_gen1' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_name_linestring_gen1'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_name_linestring_gen1 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_name_linestring_gen2' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_name_linestring_gen2'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_name_linestring_gen2 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_name_linestring_gen3' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_name_linestring_gen3'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_name_linestring_gen3 ADD PRIMARY KEY (id);
     END IF;
 
     IF NOT EXISTS (
-        SELECT constraint_name
-        FROM information_schema.table_constraints
-        WHERE table_name = 'osm_transportation_name_linestring_gen4' AND constraint_type = 'PRIMARY KEY'
+        SELECT 1
+        FROM pg_catalog.pg_constraint c
+        JOIN pg_catalog.pg_class t ON c.conrelid = t.oid
+        JOIN pg_catalog.pg_namespace n ON t.relnamespace = n.oid
+        WHERE t.relname = 'osm_transportation_name_linestring_gen4'
+          AND n.nspname = 'public'
+          AND c.contype = 'p'
     ) THEN
         ALTER TABLE osm_transportation_name_linestring_gen4 ADD PRIMARY KEY (id);
     END IF;
